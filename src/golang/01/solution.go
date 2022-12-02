@@ -49,7 +49,7 @@ func sum(array []string) int {
 	for _, v := range array {
 		intVar, err := strconv.Atoi(v)
 		if err != nil {
-			fmt.Print(err)
+			//fmt.Print(err)
 		}
 		result += intVar
 	}
