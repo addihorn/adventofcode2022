@@ -30,7 +30,7 @@ func main() {
 		repeatedChar := findReaptedChar(groupRucksacks)
 		priority := calculatePriorityOfChar(repeatedChar)
 		prioritySum += priority
-		fmt.Println(groupRucksacks, "repeatedChar:", string(repeatedChar), "priority:", priority, "Sum:", prioritySum)
+		fmt.Println(groupRucksacks, "same Item:", string(repeatedChar), "priority:", priority, "Sum:", prioritySum)
 	}
 
 }
@@ -45,7 +45,6 @@ func readInput() []string {
 
 	fileAsString := string(b)
 	return strings.Split(fileAsString, "\n")
-
 }
 
 func findRepeatedChar(first string, second string) rune {
