@@ -53,7 +53,7 @@ func (this *Directory) TouchFile(name string, size int64) {
 
 	//also increase file size of parent directories
 	parent := this.Parent
-	for ok := (parent != nil); ok; ok = (parent != nil) {
+	for ok := (parent != nil); ok == true; ok = (parent != nil) {
 		parent.FileSizes += size
 		parent = parent.Parent
 	}
