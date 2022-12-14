@@ -122,10 +122,10 @@ func main() {
 		}
 
 		allRockStructures = append(allRockStructures, currentStructure)
-		fmt.Println(currentStructure)
+		//fmt.Println(currentStructure)
 	}
 
-	fmt.Println(gridSize)
+	//fmt.Println(gridSize)
 
 	// init Grid
 	// part1
@@ -151,7 +151,7 @@ func main() {
 	Cavestructure[sandSpawnPoint[0]-gridSize.minX+1][sandSpawnPoint[1]] = 'x'
 
 	sandCorns := 0
-	PaintCave(Cavestructure)
+	//PaintCave(Cavestructure)
 	for {
 		_, noWayToGo := checkSandRestingPosition([2]int{sandSpawnPoint[0] - gridSize.minX + 1, 0})
 		if noWayToGo {
@@ -161,7 +161,7 @@ func main() {
 		sandCorns++
 	}
 	PaintCave(Cavestructure)
-	fmt.Println("I created", sandCorns, "units of sand")
+	fmt.Println("Part1: I created", sandCorns, "units of sand")
 	//part2
 	Cavestructure = make([][]rune, gridSize.maxX-gridSize.minX+2)
 	for x := range Cavestructure {
@@ -184,7 +184,7 @@ func main() {
 	Cavestructure[sandSpawnPoint[0]-gridSize.minX+1][sandSpawnPoint[1]] = 'x'
 
 	sandCorns = 0
-	PaintCave(Cavestructure)
+	//PaintCave(Cavestructure)
 	for {
 		_, noWayToGo := checkSandRestingPosition2([2]int{sandSpawnPoint[0] - gridSize.minX + 1, 0})
 		if noWayToGo {
@@ -193,8 +193,8 @@ func main() {
 		//PaintCave(Cavestructure)
 		sandCorns++
 	}
-	PaintCaveToFile(Cavestructure)
-	fmt.Println("I created", sandCorns+1, "units of sand")
+	//PaintCaveToFile(Cavestructure)
+	fmt.Println("Part2: I created", sandCorns+1, "units of sand")
 }
 
 func checkSandRestingPosition(sandUnitPosition [2]int) ([2]int, bool) {
@@ -261,6 +261,7 @@ func PaintCave(grid [][]rune) {
 			output = output + "\n"
 		}
 	*/
+	//screen.Clear()
 	for row := 0; row < len(grid[0]); row++ {
 
 		for col := 0; col < len(grid); col++ {
@@ -271,7 +272,7 @@ func PaintCave(grid [][]rune) {
 	}
 
 	fmt.Println(output)
-	time.Sleep(time.Millisecond * 10)
+	time.Sleep(time.Millisecond * 100)
 }
 
 func PaintCaveToFile(grid [][]rune) {
