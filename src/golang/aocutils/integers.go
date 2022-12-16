@@ -2,12 +2,12 @@ package aocutils
 
 import "sort"
 
-func min(intValues []int) int {
+func Min(intValues []int) int {
 	sort.Ints(intValues)
 	return intValues[0]
 }
 
-func max(intValues []int) int {
+func Max(intValues []int) int {
 	sort.Ints(intValues)
 	return intValues[len(intValues)-1]
 }
