@@ -21,14 +21,14 @@ func main() {
 	//targetRowBlock = map[[2]int]rune{}
 	sensors := [][2]int{}
 	beacons := [][2]int{}
-	//rowToCheckP1 := 2000000
-	rowToCheckP1 := 10
-	//maxX := 4000000 //20
-	maxX := 20
-	//maxY := 4000000 //20
-	maxY := 20
+	rowToCheckP1 := 2000000
+	//rowToCheckP1 := 10
+	maxX := 4000000 //20
+	//maxX := //20
+	maxY := 4000000 //20
+	//maxY := //20
 
-	sensorList := aocutils.ReadInput("test-input.txt")
+	sensorList := aocutils.ReadInput("input.txt")
 	for _, sensor := range sensorList {
 		sensorData := strings.Split(sensor, ":")[0]
 		beaconData := strings.Split(sensor, ":")[1]
@@ -84,14 +84,9 @@ func main() {
 	gridSize.MinY = 0
 	gridSize.MaxY = maxY
 
-	for i := range sensors {
-		//calculateSensorBeaconBlock(sensors[i], beacons[i])
-		calculateSensorBeaconBlock(sensors[i], beacons[i])
-		//gridSize.PaintGrid(grid)
-	}
-	gridSize.PaintGrid(grid)
+	//gridSize.PaintGrid(grid)
 
-	rowWithBeacon := 0
+	//rowWithBeacon := 0
 	for rowTocheck := gridSize.MinY; rowTocheck <= gridSize.MaxY; rowTocheck++ {
 
 		startPoints := []int{}
@@ -102,7 +97,8 @@ func main() {
 			distanceAffectsRow, start, end := calculateSensorBeaconWithStartAndEnd(sensors[i], beacons[i], rowTocheck)
 			if distanceAffectsRow {
 				startPoints = append(startPoints, start)
-				intervals[start] = end
+
+				intervals[start] = aocutils.Max([]int{end, intervals[start]})
 			}
 			//gridSize.PaintGrid(grid)
 		}
@@ -117,10 +113,10 @@ func main() {
 				fmt.Println(intervals)
 				fmt.Println("I found a gap in row:", rowTocheck)
 				fmt.Println("End of first slice:", maxEnd, "Start of new slice:", startPoints[i+1])
+				fmt.Println("P2: Signal strength:", int64((maxEnd+1)*4000000+rowTocheck))
 			}
 		}
 	}
-	fmt.Println("Part2: Found the beacon in row", rowWithBeacon)
 
 }
 
@@ -131,7 +127,7 @@ func calculateSensorBeaconWithStartAndEnd(sensorPoint [2]int, beaconPoint [2]int
 	//gridSize.RecalibrateTo([2]int{sensorPoint[0] + manhattanDistance, sensorPoint[1] + manhattanDistance})
 	//gridSize.RecalibrateTo([2]int{sensorPoint[0] - manhattanDistance, sensorPoint[1] - manhattanDistance})
 
-	if (targetRow < sensorPoint[1]-manhattanDistance) && (targetRow > sensorPoint[1]+manhattanDistance) {
+	if (targetRow < sensorPoint[1]-manhattanDistance) || (targetRow > sensorPoint[1]+manhattanDistance) {
 		return false, 0, 0
 	}
 
@@ -144,8 +140,8 @@ func calculateSensorBeaconBlockOnRowOnly(sensorPoint [2]int, beaconPoint [2]int,
 	manhattanDistance := aocutils.Abs(sensorPoint[0]-beaconPoint[0]) + aocutils.Abs(sensorPoint[1]-beaconPoint[1])
 	//fmt.Println("Manhattan between", sensorPoint, "and", beaconPoint, ":", manhattanDistance)
 
-	//gridSize.RecalibrateTo([2]int{sensorPoint[0] + manhattanDistance, sensorPoint[1] + manhattanDistance})
-	//gridSize.RecalibrateTo([2]int{sensorPoint[0] - manhattanDistance, sensorPoint[1] - manhattanDistance})
+	gridSize.RecalibrateTo([2]int{sensorPoint[0] + manhattanDistance, sensorPoint[1] + manhattanDistance})
+	gridSize.RecalibrateTo([2]int{sensorPoint[0] - manhattanDistance, sensorPoint[1] - manhattanDistance})
 
 	if (targetRow < sensorPoint[1]-manhattanDistance) && (targetRow > sensorPoint[1]+manhattanDistance) {
 		return
