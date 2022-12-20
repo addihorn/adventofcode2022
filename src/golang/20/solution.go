@@ -43,16 +43,33 @@ func main() {
 
 			newIndex := int64(encryptionValue.CurrentPosition) + encryptionValue.OffseValue
 
-			for newIndex < 0 || newIndex >= int64(len(initialSequence)) {
-				if newIndex >= int64(len(initialSequence)) {
-					overflowCorrection := newIndex / int64(len(initialSequence))
-					newIndex = newIndex%int64(len(initialSequence)) + overflowCorrection
-				}
-				if newIndex < 0 {
-					overflowCorrection := newIndex/int64(len(initialSequence)) - 1
-					newIndex = int64(len(initialSequence)) + newIndex%int64(len(initialSequence)) + overflowCorrection
-				}
+			/*
+				Alternatives:
+				Calculating the new Index can be done by either moving the new Index calculated on an array with Length -1
+				or by adding 1 to the offset for each time the Array with Length overflows/underflows
+				When doing the second idea, the calculation would need to be performed until no more overflows/underflows occur
+			*/
+
+			if newIndex >= int64(len(initialSequence)) {
+				newIndex = newIndex % int64(len(initialSequence)-1)
 			}
+			if newIndex < 0 {
+				newIndex = int64(len(initialSequence)-1) + newIndex%int64(len(initialSequence)-1)
+			}
+
+			//alternative
+			/*
+				for newIndex < 0 || newIndex >= int64(len(initialSequence)) {
+					if newIndex >= int64(len(initialSequence)) {
+						overflowCorrection := newIndex / int64(len(initialSequence))
+						newIndex = newIndex%int64(len(initialSequence)) + overflowCorrection
+					}
+					if newIndex < 0 {
+						overflowCorrection := newIndex/int64(len(initialSequence)) - 1
+						newIndex = int64(len(initialSequence)) + newIndex%int64(len(initialSequence)) + overflowCorrection
+					}
+				}
+			*/
 
 			newIndexInt := int(newIndex)
 			oldIndex := encryptionValue.CurrentPosition
