@@ -13,7 +13,8 @@ var gridSize *aocutils.Gridsize
 var orderOfProposal [4]rune
 var elfMoved bool
 
-// const inputFile = "test-input2.txt"
+//const inputFile = "test-input2.txt"
+
 const inputFile = "input.txt"
 
 func main() {
@@ -34,7 +35,7 @@ func main() {
 		}
 	}
 
-	paintGrid()
+	//paintGrid()
 	for i := 0; i < numberOfRounds; i++ {
 		startNewRound()
 
@@ -62,9 +63,9 @@ func main() {
 			break
 		}
 	}
-	paintGrid()
+	//paintGrid()
 	fmt.Println(gridSize, gridSize.MaxX-gridSize.MinX, gridSize.MaxY-gridSize.MinY, len(elfList))
-	fmt.Println("Number of empty tiles:", (gridSize.MaxX-gridSize.MinX+1)*(gridSize.MaxY-gridSize.MinY+1)-len(elfList))
+	fmt.Println("Part1: Number of empty tiles:", (gridSize.MaxX-gridSize.MinX+1)*(gridSize.MaxY-gridSize.MinY+1)-len(elfList))
 
 }
 
@@ -75,14 +76,14 @@ func paintGrid() {
 	for y := gridSize.MinY; y <= gridSize.MaxY; y++ { //
 		for x := gridSize.MinX; x <= gridSize.MaxX; x++ {
 			if _, ok := elfList[[2]int{x, y}]; ok {
-				output = output + "#"
+				output = output + "🧝"
 
 			} else {
-				output = output + "."
+				output = output + " "
 			}
 		}
 		output = output + "\n"
 	}
 	fmt.Println(output)
-	time.Sleep(time.Millisecond * 100)
+	time.Sleep(time.Millisecond * 150)
 }
